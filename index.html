@@ -166,13 +166,11 @@ const channel = data.items[0];
 
 const subs = parseInt(channel.statistics.subscriberCount);
 
-document.getElementById("avatar").src =
+document.getElementById("remaining").textContent =
+left.toLocaleString("en-US") + " to 1,000,000 subscribers";
 
-channel.snippet.thumbnails.high.url;
-
-document.getElementById("subs").textContent =
-
-subs.toLocaleString("da-DK");
+document.getElementById("percent").textContent =
+pct + "% completed";
 
 const left = Math.max(0, GOAL - subs);
 
