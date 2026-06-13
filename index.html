@@ -126,30 +126,7 @@ animation:pulse 1s infinite;
 
 <script>
 const API_KEY="AIzaSyBNfqOYBsFtSvtb2n3jXko2yNa7UeZqku8";
-const HANDLE = "@surfsterre";
-const API_KEY="AIzaSyBNfqOYBsFtSvtb2n3jXko2yNa7UeZqku8";
-
-async function loadData(){
-
-  const searchUrl =
-  `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=surfsterre&key=${API_KEY}`;
-
-  const searchRes = await fetch(searchUrl);
-  const searchData = await searchRes.json();
-
-  const channelId =
-  searchData.items[0].snippet.channelId;
-
-  const channelUrl =
-  `https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`;
-
-  const res = await fetch(channelUrl);
-  const data = await res.json();
-
-  const channel = data.items[0];
-
-  // resten af koden...
-}
+const CHANNEL_ID="UCzhfAtfmTyGeCymU9oh5zbQ";
 const GOAL=1000000;
 
 async function loadData(){
