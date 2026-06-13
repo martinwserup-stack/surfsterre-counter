@@ -164,8 +164,11 @@ const data = await res.json();
 
 const channel = data.items[0];
 console.log(data);
-document.getElementById("subs").textContent = "KANAL FUNDET";
+
 const subs = parseInt(channel.statistics.subscriberCount);
+
+document.getElementById("subs").textContent =
+subs.toLocaleString("en-US");
 
 const left = Math.max(0, GOAL - subs);
 
@@ -177,13 +180,7 @@ left.toLocaleString("en-US") + " to 1,000,000 subscribers";
 document.getElementById("percent").textContent =
 pct + "% completed";
 
-document.getElementById("remaining").textContent =
 
-left.toLocaleString("da-DK") + " tilbage til 1.000.000";
-
-document.getElementById("percent").textContent =
-
-pct + "% gennemført";
 
 document.getElementById("progress").style.width =
 
