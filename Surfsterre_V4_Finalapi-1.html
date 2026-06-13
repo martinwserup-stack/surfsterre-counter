@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surfsterre Million Counter v4.0</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+overflow:hidden;
+font-family:Inter,Arial,sans-serif;
+background:linear-gradient(180deg,#0d2035,#02060d);
+color:white;
+height:100vh;
+}
+.bgGlow{
+position:absolute;
+width:900px;height:900px;
+background:rgba(0,170,255,.12);
+border-radius:50%;
+filter:blur(100px);
+left:50%;top:20%;
+transform:translateX(-50%);
+}
+.container{
+position:relative;
+z-index:2;
+height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+padding:30px;
+text-align:center;
+}
+.avatar{
+width:180px;height:180px;
+border-radius:50%;
+border:5px solid rgba(255,255,255,.25);
+object-fit:cover;
+box-shadow:0 0 40px rgba(0,200,255,.4);
+}
+.title{
+font-size:clamp(48px,6vw,100px);
+font-weight:900;
+margin-top:25px;
+}
+.counter{
+font-size:clamp(90px,11vw,200px);
+font-weight:900;
+line-height:1;
+text-shadow:0 0 30px rgba(255,255,255,.3);
+}
+.progressBg{
+width:min(1000px,90vw);
+height:52px;
+background:#111;
+border-radius:999px;
+overflow:hidden;
+margin-top:25px;
+}
+.progress{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#ff0033,#ff7700,#ffe600);
+transition:1s;
+}
+.stat{
+font-size:clamp(28px,3vw,50px);
+margin-top:15px;
+}
+.small{
+font-size:clamp(18px,2vw,30px);
+opacity:.8;
+}
+.wave{
+position:absolute;
+bottom:-80px;
+left:-10%;
+width:130%;
+height:250px;
+background:rgba(0,180,255,.12);
+border-radius:45%;
+animation:wave 12s linear infinite;
+}
+@keyframes wave{
+from{transform:translateX(0)}
+to{transform:translateX(-20%)}
+}
+#confetti{
+display:none;
+position:absolute;
+inset:0;
+font-size:50px;
+align-items:center;
+justify-content:center;
+animation:pulse 1s infinite;
+}
+@keyframes pulse{
+50%{opacity:.35}
+}
+</style>
+</head>
+<body>
+<div class="bgGlow"></div>
+<div class="wave"></div>
+
+<div class="container">
+<img id="avatar" class="avatar" src="" alt="Surfsterre">
+
+<div class="title">🏄 SURFSTERRE</div>
+
+<div id="subs" class="counter">Loading...</div>
+
+<div class="progressBg">
+<div id="progress" class="progress"></div>
+</div>
+
+<div id="remaining" class="stat"></div>
+<div id="percent" class="small"></div>
+<div id="daily" class="small"></div>
+</div>
+
+<div id="confetti">🎉🎊🏄‍♀️🎉🎊🏄‍♀️🎉🎊</div>
+
+<script>
+const API_KEY="AIzaSyBNfqOYBsFtSvtb2n3jXko2yNa7UeZqku8";
+const CHANNEL_ID="UCzhfAtfmTyGeCymU9oh5zbQ";
+const GOAL=1000000;
+
+async function loadData(){
+try{
+const channelUrl=`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+const res=await fetch(channelUrl);
+const data=await res.json();
+
+const channel=data.items[0];
+const subs=parseInt(channel.statistics.subscriberCount);
+
+document.getElementById("avatar").src=channel.snippet.thumbnails.high.url;
+document.getElementById("subs").textContent=subs.toLocaleString("da-DK");
+
+const left=Math.max(0,GOAL-subs);
+const pct=((subs/GOAL)*100).toFixed(3);
+
+document.getElementById("remaining").textContent=left.toLocaleString("da-DK")+" tilbage til 1.000.000";
+document.getElementById("percent").textContent=pct+"% gennemført";
+document.getElementById("progress").style.width=Math.min(100,pct)+"%";
+
+if(subs>=GOAL){
+ document.getElementById("confetti").style.display="flex";
+}
+
+}catch(err){
+document.getElementById("subs").textContent="API FEJL";
+}
+}
+
+loadData();
+setInterval(loadData,30000);
+</script>
+</body>
+</html>
