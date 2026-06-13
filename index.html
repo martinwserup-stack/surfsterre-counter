@@ -163,7 +163,8 @@ const res = await fetch(channelUrl);
 const data = await res.json();
 
 const channel = data.items[0];
-
+console.log(data);
+document.getElementById("subs").textContent = "KANAL FUNDET";
 const subs = parseInt(channel.statistics.subscriberCount);
 
 const left = Math.max(0, GOAL - subs);
