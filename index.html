@@ -133,60 +133,77 @@ async function loadData() {
 try {
 
 const searchUrl =
-https://www.googleapis.com/youtube/v3/search?part=id,snippet&type=channel&q=surfsterre&maxResults=5&key=${API_KEY};
+
+`https://www.googleapis.com/youtube/v3/search?part=id,snippet&type=channel&q=surfsterre&maxResults=5&key=${API_KEY}`;
 
 const searchRes = await fetch(searchUrl);
+
 const searchData = await searchRes.json();
 
-console.log(searchData);
-
 const surfChannel = searchData.items.find(
-item => item.snippet.channelTitle.toLowerCase().includes(“surfsterre”)
+
+item => item.snippet.channelTitle.toLowerCase().includes("surfsterre")
+
 );
 
 if (!surfChannel) {
-throw new Error(“Surfsterre channel not found”);
+
+throw new Error("Surfsterre channel not found");
+
 }
 
 const channelId = surfChannel.id.channelId;
 
 const channelUrl =
-https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY};
+
+`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${channelId}&key=${API_KEY}`;
 
 const res = await fetch(channelUrl);
+
 const data = await res.json();
 
 const channel = data.items[0];
 
 const subs = parseInt(channel.statistics.subscriberCount);
 
-document.getElementById(“avatar”).src =
+document.getElementById("avatar").src =
+
 channel.snippet.thumbnails.high.url;
 
-document.getElementById(“subs”).textContent =
-subs.toLocaleString(“da-DK”);
+document.getElementById("subs").textContent =
+
+subs.toLocaleString("da-DK");
 
 const left = Math.max(0, GOAL - subs);
+
 const pct = ((subs / GOAL) * 100).toFixed(3);
 
-document.getElementById(“remaining”).textContent =
-left.toLocaleString(“da-DK”) + “ tilbage til 1.000.000”;
+document.getElementById("remaining").textContent =
 
-document.getElementById(“percent”).textContent =
-pct + “% gennemført”;
+left.toLocaleString("da-DK") + " tilbage til 1.000.000";
 
-document.getElementById(“progress”).style.width =
-Math.min(100, pct) + “%”;
+document.getElementById("percent").textContent =
+
+pct + "% gennemført";
+
+document.getElementById("progress").style.width =
+
+Math.min(100, pct) + "%";
 
 } catch (err) {
 
 console.error(err);
 
-document.getElementById(“subs”).textContent =
-“API FEJL”;
+document.getElementById("subs").textContent =
+
+"API FEJL";
 
 }
+
 }
 
 loadData();
+
 setInterval(loadData, 30000);
+
+</script
