@@ -111,7 +111,7 @@ animation:pulse 1s infinite;
 
 <div class="title">🏄 SURFSTERRE</div>
 
-<div id="subs" class="counter">TEST 123</div>
+<div id="subs" class="counter">Loading...</div>
 
 <div class="progressBg">
 <div id="progress" class="progress"></div>
@@ -129,7 +129,7 @@ const API_KEY="AIzaSyBU66UNIjX6_oBrQkHDOe1qcTgZjqAG0fk";
 const GOAL=1000000;
 
 async function loadData() {
-
+document.getElementById("subs").textContent = "JS STARTET";
 try {
 
 const searchUrl =
