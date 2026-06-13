@@ -19,7 +19,7 @@ position:absolute;
 width:900px;height:900px;
 background:rgba(0,170,255,.12);
 border-radius:50%;
-filter:blur(100px);
+filter:blur(100px); yt
 left:50%;top:20%;
 transform:translateX(-50%);
 }
@@ -166,15 +166,15 @@ const channel = data.items[0];
 
 const subs = parseInt(channel.statistics.subscriberCount);
 
+const left = Math.max(0, GOAL - subs);
+
+const pct = ((subs / GOAL) * 100).toFixed(3);
+
 document.getElementById("remaining").textContent =
 left.toLocaleString("en-US") + " to 1,000,000 subscribers";
 
 document.getElementById("percent").textContent =
 pct + "% completed";
-
-const left = Math.max(0, GOAL - subs);
-
-const pct = ((subs / GOAL) * 100).toFixed(3);
 
 document.getElementById("remaining").textContent =
 
